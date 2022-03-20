@@ -18,6 +18,8 @@ Al añadir una incidencia el número de incidencias del animal al que hace refer
 
 Cada modelo tiene su propia vista, ambas tienen un vista tree para poder visualizar una lista con la información de cada elemento insertado en los modelos, una vista kanban que muestra la misma información que la vista tree pero de una forma más visual y ordenada y una vista form para introducir la información de los campos de cada modelo.
 
+En la vista de patients el group by esta modificado para que se pueda agrupar por especie o por raza y en la vista de incidents también se puede agrupar por fecha .
+
 ### Objetivos y mejoras futuras
 
 Objetivos, ampliar el módulo hasta que sea completamente funcional.
