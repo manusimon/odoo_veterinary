@@ -10,7 +10,7 @@ El módulo consta de dos modelos 'patients.py' y 'incidents.py'.
 
 Patients, nos permite dar de alta animales indicando sus datos y características tales como: nombre, fecha de nacimiento, raza y especie del animal; además tiene un campo calculado número de incidencias el cual hace un conteo de las incidencas que están relacionadas al animal en cuestión.
 
-Incidents, este modelo relaciona icidencias con los animales que esten dados de alta, consta de un campo Many2one que visualiza que animales estan dados de alta y al seleccionar uno de ellos sea auto rellenarán los campos relativos a la información del animal, especie y raza, para el crear la incidencia deberemos también añadir la fecha en al que ocurrió y la descripción de esta. 
+Incidents, este modelo relaciona icidencias con los animales que esten dados de alta, consta de un campo Many2one que visualiza que animales estan dados de alta y al seleccionar uno de ellos se auto rellenarán los campos relativos a la información del animal, especie y raza, para el crear la incidencia deberemos también añadir la fecha en al que ocurrió y la descripción de esta. 
 
 Al añadir una incidencia el número de incidencias del animal al que hace referecia aumentará en 1.
 
