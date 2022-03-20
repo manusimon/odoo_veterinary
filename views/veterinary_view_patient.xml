@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Search view, para buscar y filtrar elementos del modulo -->
+
+    <record id="patient_search" model="ir.ui.view">
+        <field name="name">veterinary.patient.search</field>
+        <field name="model">veterinary.patient</field>
+        <field name="arch" type="xml">
+            <search string="Patient">
+                <field name="name"/>
+                <separator/>
+                <group expand="1" string="Group by">
+                    <filter string="Specie" name="specie" context="{'group_by':'specie'}"/>
+                    <filter string="Breed" name="breed" context="{'group_by':'breed'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree view para visualizar la informacion de cada animal desde fuera -->
+
+    <record id="patient_tree" model="ir.ui.view">
+        <field name="name">veterinary.patient.tree</field>
+        <field name="model">veterinary.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="specie"/>
+                <field name="breed"/>
+                <field name="birth"/>
+            </tree>
+        </field> 
+    </record>
+
+    <!-- Kanban view una forma mas grafica de ver la informacion  -->
+
+    <record id="patient_kanban" model="ir.ui.view">
+        <field name="name">veterinary.patient.kanban</field>
+        <field name="model">veterinary.patient</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="specie"/>
+                <field name="breed"/>
+                <field name="birth"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        Id: <field name="id"/>
+                                    </li>
+                                    <li>
+                                        Name: <field name="name"/>
+                                    </li>
+                                    <li>
+                                        Specie: <field name="specie"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+
+    </record>
+
+    <!-- From view, representa la forma en la que se ven los campos del modelo correspondiente -->
+
+    <record id="patient_form" model="ir.ui.view">
+        <field name="name">veterinary.patient.form</field>
+        <field name="model">veterinary.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet> <!-- Añade un area delimitada a la pagina donde poner los campos -->
+                    <group>
+                        <group> <!-- Agrupa los campos en 'columnas', sin group no hay label -->
+                            <field name="name"/>
+                            <field name="birth"/>
+                        </group>
+                        <group>
+                            <field name="specie"/>
+                            <field name="breed"/>
+                            <field name="incidents"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acciones del modulo -->
+    <!-- Sin accion y sin permisos .csv no se muestra el modulo en el menu -->
+    
+    <record id="patient_action" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">veterinary.patient</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primer paciente
+            </p>
+        </field>
+    </record>
+
+
+    <!-- Esto muestra el menu raiz del modulo -->
+
+    <menuitem id="veterinary_root"
+              name="Veterinary"
+              sequence="10"/>
+
+    <!-- Submenus del modulo -->
+
+    <menuitem id="veterinary_patient_root"
+              name="Patients"
+              parent="veterinary_root"
+              sequence="10"/>
+
+    <!-- Relacionamos el menu con su accion con action="" -->
+
+    <menuitem id="veterinary_patient"
+              name="Patients"
+              parent="veterinary_patient_root"
+              action="patient_action" 
+              sequence="10"/>
+
+</odoo>

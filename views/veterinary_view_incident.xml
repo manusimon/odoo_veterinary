@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Search view, para buscar y filtrar elementos del modulo -->
+
+    <record id="incident_search" model="ir.ui.view">
+        <field name="name">veterinary.incident.search</field>
+        <field name="model">veterinary.incident</field>
+        <field name="arch" type="xml">
+            <search string="Incident">
+                <field name="name"/>
+                <separator/>
+                <group expand="1" string="Group by">
+                    <filter string="Specie" name="specie" context="{'group_by':'specie'}"/>
+                    <filter string="Breed" name="breed" context="{'group_by':'breed'}"/>
+                    <filter string="Date" name="date" context="{'group_by':'date_incident'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree view para visualizar la informacion de cada animal desde fuera -->
+
+    <record id="incident_tree" model="ir.ui.view">
+        <field name="name">veterinary.incident.tree</field>
+        <field name="model">veterinary.incident</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="specie"/>
+                <field name="date_incident"/>
+            </tree>
+        </field> 
+    </record>
+
+    <!-- Kanban view una forma mas grafica de ver la informacion  -->
+
+    <record id="incident_kanban" model="ir.ui.view">
+        <field name="name">veterinary.incident.kanban</field>
+        <field name="model">veterinary.incident</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        Id: <field name="id"/>
+                                    </li>
+                                    <li>
+                                        Name: <field name="name"/>
+                                    </li>
+                                    <li>
+                                        Specie: <field name="specie"/>
+                                    </li>
+                                    <li>
+                                        Date: <field name="date_incident"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+
+    </record>
+
+    <!-- From view, representa la forma en la que se ven los campos del modelo correspondiente -->
+
+    <record id="incident_form" model="ir.ui.view">
+        <field name="name">veterinary.incident.form</field>
+        <field name="model">veterinary.incident</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet> <!-- Añade un area delimitada a la pagina donde poner los campos -->
+                    <group>
+                        <group> <!-- Agrupa los campos en 'columnas', sin group no hay label -->
+                            <field name="name"/>
+                            <field name="specie"/>
+                            <field name="breed"/>
+                        </group>
+                        <group>
+                            <field name="date_incident"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acciones del modulo -->
+    <!-- Sin accion y sin permisos .csv no se muestra el modulo en el menu -->
+    
+    <record id="incident_action" model="ir.actions.act_window">
+        <field name="name">Incidents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">veterinary.incident</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea una incidencia
+            </p>
+        </field>
+    </record>
+
+
+    <!-- Submenus del modulo -->
+
+    <menuitem id="veterinary_incident_root"
+              name="Incidents"
+              parent="veterinary_root"
+              sequence="10"/>
+
+    <!-- Relacionamos el menu con su accion con action="" -->
+
+    <menuitem id="veterinary_incident"
+              name="Incidents"
+              parent="veterinary_incident_root"
+              action="incident_action" 
+              sequence="10"/>
+
+</odoo>
